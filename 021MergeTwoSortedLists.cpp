@@ -7,7 +7,7 @@
  * };
  */
 
- // do what we do to the linear list(array)       9 ms
+ // increasing list, do what we do to the linear list(array)       9 ms
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
