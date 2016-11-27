@@ -1,0 +1,2 @@
+ssh-keygen to generate ssh key
+git rm file   git commit    git push
