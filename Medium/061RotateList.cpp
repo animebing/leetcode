@@ -84,10 +84,15 @@ public:
         if (cnt == 1) return head;
         tail->next = head;  // make a circle
         k %= cnt;
-        if (k == 0) return head;   // this sentence can't be executed, i am really confused
+        if (k == 0) return head;   // this sentence can't be executed, i am really confused, solved now,  because there is a circle
         for (int i = 0; i < cnt-k; i++) tail = tail->next;
         head = tail->next;
         tail->next = NULL;
         return head;
     }
 };
+
+// below is the modification
+        if (k == 0) {
+            for (int i = 0; i < cnt-k; i++) tail = tail->next;
+        }
