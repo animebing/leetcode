@@ -87,3 +87,51 @@ private:
         return false;
     }
 };
+
+
+// modification of my previous solution based on jianchao.li.fighter, https://discuss.leetcode.com/topic/16983/easy-76ms-c-solution-using-bfs
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        if (beginWord.size() != endWord.size()) return 0;
+        if (wordList.size() == 0) return 0;
+        unordered_set<string> visited;
+        visited.insert(beginWord); 
+        queue<string> q;
+        q.push(beginWord);
+        int len = 0;
+        sort(wordList.begin(), wordList.end());
+        while (!q.empty()) {
+            len++;
+            int n = q.size();
+            for (int i = 0; i < n; i++) {
+                string word = q.front();
+                q.pop();
+                if (word == endWord) return len;
+                for (int j = 0; j < word.size(); j++) {
+                    char letter = word[j];   // --------------------------- clever 
+                    for (int t = 0; t < 26; t++) {
+                        word[j] = 'a'+t;
+                        if (biSearch(wordList, word) && visited.count(word)==0) { // check visited here, then insert,
+                            q.push(word);                                         // so I need to insert beginWord at first
+                            visited.insert(word);
+                        }
+                    }
+                    word[j] = letter;  // ------------------------------ clever
+                }
+            }
+        }
+        return 0;
+    }
+private:
+    bool biSearch(vector<string> &wordList, string target) {
+        int low = 0, high = wordList.size()-1;
+        while (low <= high) {
+            int mid = low + (high-low)/2;
+            if (wordList[mid] == target) return true;
+            if (wordList[mid] < target) low = mid+1;
+            else high = mid-1;
+        }
+        return false;
+    }
+};
