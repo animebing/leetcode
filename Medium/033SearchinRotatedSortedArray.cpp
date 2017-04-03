@@ -40,7 +40,7 @@ public:
         while (low <= high) {
             int mid = low + (high-low)/2; // mid = low&high + (low^high)>>1;
             if (nums[mid] == target) return mid;
-            if (nums[mid] < nums[high]) {
+            if (nums[mid] <= nums[high]) {
                 if (target>nums[mid] && target<=nums[high]) low = mid+1;
                 else high = mid-1;
             }else {
