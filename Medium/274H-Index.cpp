@@ -13,3 +13,25 @@ public:
         return h;
     }
 };
+
+
+// maintain a vector to record the number of papers for citation number, then from the one with largest citation
+// until we find the accumulated number of papers is larger than or equal to citation
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        int n = citations.size();
+        if (n == 0) return 0;
+        vector<int> c2num(n+1, 0);
+        for (int c : citations) {
+            if (c >= n) c2num[n]++;   // --------------------------
+            else c2num[c]++;
+        }
+        int t = 0;
+        for (int i = n; i >= 1; i--) {
+            t += c2num[i];
+            if (t >= i) return i;
+        }
+        return 0;
+    }
+};
