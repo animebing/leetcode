@@ -11,3 +11,22 @@ public:
         return h;
     }
 };
+
+
+// based on the above idea, using binary search to solve it.
+// ATTENTION: the case with all zeros
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        int n = citations.size();
+        if (n == 0) return 0;
+        int left = 0, right = n-1;
+        while (left < right) {
+            int mid = left + (right-left)/2;
+            if (citations[mid] >= n-mid) right = mid; 
+            else left = mid+1;
+        }
+        if (citations[left] == 0) return 0;   // ------------------------
+        else return n-left;
+    }
+};
